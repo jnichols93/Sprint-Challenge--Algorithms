@@ -5,6 +5,7 @@ Your function must utilize recursion. It cannot contain any loops.
 '''
 def count_th(word):
     
-    # TBC
+    # basecase
+    # if word is to short return 0
     
     pass
