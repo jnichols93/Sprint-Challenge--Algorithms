@@ -101,17 +101,23 @@ class SortingRobot:
         # make robot turn off light when not swapping
         while self.light_is_on() == True:
             self.set_light_off()
-        #  build right and swap
+        #Now to build out so it can move to the right and swap
             while self.can_move_right():
+        #first, pick up the initial item in the list
+        self.swap_item()
         # move to next item
-
+        self.move_right()
         # compare items and swap if held is >
-
+        if self.compare_item() == 1:
+            self.swap_item()
+            self.set_light_on()
         #  move back left, drop held item, then continue right and repeat
-        
+        self.move_left()
+        self.swap_item()
+        self.move_right()
 
         # do the same as above for the opposite if on far side of list
-
+        
         # pickup item at far end
 
         # move to previous item
