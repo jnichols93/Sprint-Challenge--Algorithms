@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -97,14 +99,49 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        # Turn light on to start
+        self.set_light_on()
+        # Make robot turn light off when it isn't swapping
+        while self.light_is_on() == True:
+            self.set_light_off()
+
+            # Now to build out so it can move to the right and swap
+            while self.can_move_right():
+                # first, pick up the initial item in the list
+                self.swap_item()
+                # move to next item in the list
+                self.move_right()
+                # compare items and swap if held item is greater, then save held item
+                if self.compare_item() == 1:
+                    self.swap_item()
+                    self.set_light_on()
+                # move back left, drop held item, then continue right and repeat
+                self.move_left()
+                self.swap_item()
+                self.move_right()
+
+            # Time to do the opposite if it's at the far side of the list
+            while self.can_move_left():
+                # pick up item at far end of list
+                self.swap_item()
+                # move to previous item on list
+                self.move_left()
+                # compre items, swapping only if held item is smaller this time, then saving said item
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.set_light_on()
+                # and then move back, drop held item, and continue left, repeating
+                self.move_right()
+                self.swap_item()
+                self.move_left()
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
