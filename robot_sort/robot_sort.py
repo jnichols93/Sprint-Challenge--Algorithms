@@ -104,7 +104,7 @@ class SortingRobot:
         #Now to build out so it can move to the right and swap
             while self.can_move_right():
         #first, pick up the initial item in the list
-        self.swap_item()
+                self.swap_item()
         # move to next item
         self.move_right()
         # compare items and swap if held is >
@@ -117,15 +117,20 @@ class SortingRobot:
         self.move_right()
 
         # do the same as above for the opposite if on far side of list
-        
+        while self.can_move_left():
         # pickup item at far end
-
+            self.swap_item()
         # move to previous item
-
+            self.move_left()
         # compare items, swap only if held item is < 
-
+            if self.compare_item() == -1:
+                self.swap_item()
+                self.set_light_on()
         # move back, drop item continue left repeat
-
+            self.move_right()
+            self.swap_item()
+            self.move_left()
+            
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
